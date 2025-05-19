@@ -27,10 +27,6 @@ class Del1():
         try:
             # Fjerne eventuelle skjulte tegn
             self.data.columns = self.data.columns.str.replace("\ufeff", "").str.strip()
-            
-            # Konvertere kolonner til riktig datatype
-            self.convert_to_numerical()
-            self.convert_to_datetime()
 
             return self.data
 
@@ -40,18 +36,14 @@ class Del1():
             print(f"Uventet feil: {e}")
 
     # Konvertere relevante kolonner til numerisk format
-    def convert_to_numerical(self):
+    def convert_to_numerical(self, kolonne: str):
         try:
-            self.data["Høyeste vindkast (1 t)"] = [
+            self.data[kolonne] = [
                 float(x.replace(",", ".")) if isinstance(x, str) else x 
-                for x in self.data["Høyeste vindkast (1 t)"]
-            ] 
-
-            self.data["Lufttemperatur"] = [
-                float(x.replace(",", ".")) if isinstance(x, str) else x 
-                for x in self.data["Lufttemperatur"]
+                for x in self.data[kolonne]
             ]
-        
+            return self.data 
+
         except ValueError as e:
             print(f"Feil ved konvertering av kolonner til numerisk format: {e}")
         except KeyError as e:
@@ -61,9 +53,10 @@ class Del1():
 
 
     # Konvertere 'Tid(norsk normaltid)' til datetime-format
-    def convert_to_datetime(self):
+    def convert_to_datetime(self, kolonne: str):
         try:
-            self.data["Tid(norsk normaltid)"] = [pd.to_datetime(t, format="%d.%m.%Y %H:%M") for t in self.data["Tid(norsk normaltid)"]]
+            self.data[kolonne] = [pd.to_datetime(t, format="%d.%m.%Y %H:%M") for t in self.data[kolonne]]
+            return self.data
         
         except ValueError as e:
             print(f"Feil ved konvertering av tid: {e}")
@@ -114,7 +107,7 @@ class Del2():
     # Enkel analyse av data
     def simple_analysis(self, kolonne: str):
         try:
-            print(self.data[kolonne].describe())
+            self.data[kolonne].describe()
         except Exception as e:
             print(f"Feil under enkel analyse: {e}")
 

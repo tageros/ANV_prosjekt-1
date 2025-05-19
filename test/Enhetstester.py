@@ -9,17 +9,22 @@ class TestDel1(unittest.TestCase):
         self.del1 = Del1("../data/table.csv")
         self.data = self.del1.load_data()
         self.cleaned = self.del1.clean_data()
+        self.no_file = Del1("non_existent_file.csv")
+        
 
     def test_load_data(self):
         self.assertIsInstance(self.data, pd.DataFrame)
         self.assertFalse(self.data.empty)
-
+        self.assertRaises(FileNotFoundError, self.no_file.load_data())
+           
+  
     def test_clean_data(self):
         self.assertIsInstance(self.cleaned, pd.DataFrame)
         self.assertIn("Tid(norsk normaltid)", self.cleaned.columns)
         self.assertTrue(pd.api.types.is_datetime64_any_dtype(self.cleaned["Tid(norsk normaltid)"]))
         self.assertTrue(pd.api.types.is_float_dtype(self.cleaned["Høyeste vindkast (1 t)"]))
-        self.assertTrue(pd.api.types.is_float_dtype(self.cleaned["Lufttemperatur"]))
+        self.assertTrue(pd.api.types.is_float_dtype(self.cleaned["Lufttemperatur"]))        
+      
 
 
 class TestDel2(unittest.TestCase):
@@ -27,6 +32,7 @@ class TestDel2(unittest.TestCase):
         self.del1 = Del1("table.csv")
         self.data = self.del1.clean_data()
         self.del2 = Del2(self.data)
+        
 
     def test_compute_mean(self):
         mean = self.del2.compute_mean("Høyeste vindkast (1 t)")
