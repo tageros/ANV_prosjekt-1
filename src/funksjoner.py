@@ -150,5 +150,27 @@ class Del2():
         
         except Exception as e:
             print(f"Feil under prediksjon: {e}")
+
+    
+    def correlation_analysis(self, kolonne1: str, kolonne2: str, method: str = "pearson"):
+        if method not in ["pearson", "spearman", "kendall"]:
+            print(f"Ugyldig metode '{method}'. Bruk 'pearson', 'spearman' eller 'kendall'.")
+            return None
+        try:
+            # Beregner korrelasjon mellom de to kolonnene for den metoden som er valgt
+            if method == "pearson":
+                correlation = self.data[kolonne1].corr(self.data[kolonne2], method='pearson')
+            elif method == "spearman":
+                correlation = self.data[kolonne1].corr(self.data[kolonne2], method='spearman')
+            elif method == "kendall":
+                correlation = self.data[kolonne1].corr(self.data[kolonne2], method='kendall')
+            correlation = self.data[kolonne1].corr(self.data[kolonne2])
+            
+            print(f"Korrelasjon mellom '{kolonne1}' og '{kolonne2}' ({method}): {correlation:.2f}")
+            return correlation
+        except KeyError:
+            print(f"En eller begge kolonner finnes ikke i datasettet.")
+        except Exception as e:
+            print(f"Feil under korrelasjonsanalyse: {e}")
     
     
