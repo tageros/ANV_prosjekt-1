@@ -1,27 +1,37 @@
 # ANV_prosjekt-1
-Mappe del 1
 
-# Oppgave 2:
 
-### 1.	Hvilke åpne datakilder er identifisert som relevante for miljødata, og hva er kriteriene (f.eks. kildeautoritet, datakvalitet, tilgjengelighet, brukervennlighet osv.) for å vurdere.
-    Vi har benyttet oss av miljødata fra Yr og SeKlima, som begge drives av meteorologisk institutt. Denne kilden har god kildeautoritet, da meteorologisk institutt er en norsk statlig organisasjon med ansvar for værvarsling og forskningsvirksomhet innenfor meteorologi. Værdataen er derfor også kvalitetssikret data som vi kan stole på at stemmer overens med virkeligheten. Alt av miljødata som vi har brukt finner vi gratis på internett med god tilgjengelighet for alle. Yr er enkel nettside som hovedsakelig viser informasjon om været, mens SeKlima viser mer detaljert data som passer vår bruk.
+Dette prosjektet er utviklet som del av et kurs i anvendt programering (TDT4114), og fokuserer på å hente, rense og analysere miljødata fra åpne kilder i Norge. Prosjektet er delt inn i flere deler og dekker blant annet datainnhenting, datarensing, visualisering, statistisk analyse og enkel regresjonsmodellering av miljødata fra åpne kilder som SeKlima og Yr.
 
-### 2. Hvilke teknikker (f.eks. håndtering av CSV-filer, JSON-data) er valgt å bruke for å lese inn dataene, og hvordan påvirker disse valgene datakvaliteten og prosessen videre?
-    Vi har valgt å bruke Pandas sin funksjonalitet i form av pandas.read_csv(). Denne er 	effektiv for å behandle CSV-filer i Python. Gjennom å bruke dette merket vi at pandas 	tolket informasjonen godt, og ga oss de svarene vi var ute etter. 
+Under kan du se strukturen til prosjektet. For hver hovedmappe er det en tilhørende README.md fil. Disse gir et liten oversikt over hva som er gjort i de representative mappene og hvordan de er bygget opp. README.md filen til docs mappen er anerledes da denne inneholder svar på de forskjellige vurderingskriteriene som er lagt frem. Docs mappen inneholder også en pdf fil for refleksjonsnotatet og ki deklarasjonsskjema. I src mappen finner du filen "funksjoner.py" som er en python fil som inneholder alt av funksjoner brukt i de to delene.
 
-### 3.	Dersom det er brukt API-er, hvilke spesifikke API-er er valgt å bruke, og hva er de viktigste dataene som kan hentes fra disse kildene?
-    Vi har valgt å ikke brukt APIer fordi vi benytter oss av historiske data fra 2024 som vi har hentet fra SeKlima. API er effektiv til data som kan oppdateres underveis, men siden vi bruker historiske data er ikke det nødvendig for oss å bruke API.
+##  Prosjektstruktur
 
-# Oppgave 3:
+#### requirements.txt # Avhengigheter
 
-### 1.	Hvilke metoder vil du bruke for å identifisere og håndtere manglende verdier i datasettet?
-    For å identifisere og håndtere manglende verdier i datasettet bruker vi Pandas.isnull(). Dette er en funksjon som sjekker etter manglende verdier i et datasett. Vi benyttet oss av denne da den gir oss en klar oversikt over hvor det er manglende data. 
+### data/ # Inneholder datasett og bilder
+    table.csv
+    README.md
+    pictures/
+        Godkjente tester.png
 
-### 2.	Kan du gi et eksempel på hvordan du vil bruke list comprehensions for å manipulere dataene?
-    Vi har brukt list comprehensions for å bytte komma med punktum i datasettet, slik at tallene tolkes som desimaltall. Vi har også brukt list comprehensions til å endre tiden i datasettet fra norsk normaltid til Python sitt datetime-format.
+### docs/ # Dokumentasjon og notatbøker
+    Del1.ipynb
+    Del2.ipynb
+    test.ipynb
+    README.md
+    ki/
+        Ki_deklarasjonsskjema
+### src/ # Kildekode
+    init.py
+    funksjoner.py
+    README.md
+    plot_html/
+        plotly_lufttemp.html
+        plotly_vindkast.html
+### test/ # Enhetstester
+    test_del1.py
+    test_del2.py
+    README.md
 
-### 3.	Hvordan kan Pandas SQL (sqldf) forbedre datamanipuleringen sammenlignet med tradisjonelle Pandas-operasjoner?
-    Med Pandas SQL kan man bruke SQL-syntaks Pandas data som gjør det enklere å forstå informasjonen fra dataen. Sqldf kan gi kortere og mer oversiktlig kode som gjør det lettere å analysere og forstå store datasett. 
 
-### 4.	Hvilke spesifikke uregelmessigheter i dataene forventer du å møte, og hvordan planlegger du å håndtere dem?
-    Vanlige problemer som vi forventer å møte kan være verdier som mangler og datatyper som er feil. Disse uregelmessighetene kan løses ved hjelp av list comprehensions og pandas-funksjoner som Pandas.isnull(). 

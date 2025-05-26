@@ -28,10 +28,18 @@ class TestDel2(unittest.TestCase):
     def test_compute_median(self):
         self.assertEqual(self.del2.compute_median("Temp"), 3)
 
-    def test_moving_average(self):
-        ma = self.del2.moving_average("Temp", 3)
-        self.assertEqual(len(ma), len(self.df))
-        self.assertTrue(pd.isna(ma.iloc[1]))
+    def test_moving_average_with_self_data(self):
+        result = self.del2.moving_average('Temp', vindu=3)
+        self.assertIsInstance(result, pd.Series)
+        self.assertIn('Temp_moving_avg', self.del2.data.columns)
+        self.assertAlmostEqual(result.iloc[2], 2.0)  # (1+2+3)/3
+
+    def test_moving_average_with_explicit_df(self):
+        df_missing = self.df.copy()
+        df_missing.loc[1, 'Temp'] = np.nan  # Sett én verdi til NaN
+        result = self.del2.moving_average('Temp', vindu=3, df=df_missing)
+        self.assertIn('Temp_moving_avg', df_missing.columns)
+        self.assertTrue(np.isnan(result.iloc[1]) or result.iloc[1] == 1.0)
 
     def test_train_linear_regression(self):
         model, start_time = self.del2.train_linear_regression("Temp")
