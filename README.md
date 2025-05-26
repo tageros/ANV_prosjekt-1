@@ -34,4 +34,10 @@ Under kan du se strukturen til prosjektet. For hver hovedmappe er det en tilhør
     test_del2.py
     README.md
 
+### GitHub URL:
+https://github.com/tageros/ANV_prosjekt-1.git
+
+### Bilde av branching:
+
+![plot](/data/pictures/Branching.png)
 
