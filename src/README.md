@@ -1,0 +1,3 @@
+# Source Control
+
+Her ligger "funksjoner.py" filen som inneholder alt av funksjoner som blir brukt i de to delene. Den består av to klasser (Del1 og Del2) hvor hver av klassene har funksjoner som tillhører den representative delen. Ellers lagres html filene her, men de åpnes i del2. Vi har også laget en "__init__.py" fil som gjør det mulig for funksjonstestene å lese og teste funksjonene i "funksjoner.py".
