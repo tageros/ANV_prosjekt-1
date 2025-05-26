@@ -64,6 +64,7 @@ class Del1():
             print(f"Kolonnen finnes ikke i data: {e}")
         except Exception as e:
             print(f"Uventet feil under konvertering til datetime: {e}")
+    
 
     
 class Del2():
@@ -111,12 +112,19 @@ class Del2():
         except Exception as e:
             print(f"Feil under enkel analyse: {e}")
 
-    def moving_average(self, kolonne: str, vindu: int):
+    def moving_average(self, kolonne: str, vindu: int, min_periods: int = 1, df: pd.DataFrame = None):
+        
         try:
-            self.data[f"{kolonne}_moving_avg"] = self.data[kolonne].rolling(window=vindu).mean()
-            return self.data[f"{kolonne}_moving_avg"]
-        except KeyError:
-            print(f"Kolonnen '{kolonne}' finnes ikke i datasettet.")
+            if df is None:
+                df = self.data
+
+            if kolonne not in df.columns:
+                raise KeyError(f"Kolonnen '{kolonne}' finnes ikke i datasettet.")
+
+            df[f"{kolonne}_moving_avg"] = df[kolonne].rolling(
+                window=vindu, min_periods=min_periods).mean()
+            return df[f"{kolonne}_moving_avg"]
+
         except Exception as e:
             print(f"Feil under beregning av glidende gjennomsnitt: {e}")
 
@@ -174,3 +182,19 @@ class Del2():
             print(f"Feil under korrelasjonsanalyse: {e}")
     
     
+    def create_missing_values(self, cols: list, frac: float = 0.2, seed: int = 42) -> pd.DataFrame:
+        # Lager kopi av datasettet for å unngå å endre originaldataene og setter seed for reproduserbarhet
+        df_copy = self.data.copy()
+        np.random.seed(seed)
+
+
+        for col in cols:
+            if col in df_copy.columns:
+                n_rows = df_copy.shape[0]
+                n_missing = int(n_rows * frac)
+                missing_indices = np.random.choice(n_rows, n_missing, replace=False)
+                df_copy.loc[missing_indices, col] = np.nan
+            else:
+                print(f"Advarsel: Kolonnen '{col}' finnes ikke i datasettet.")
+
+        return df_copy

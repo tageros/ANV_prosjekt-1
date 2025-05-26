@@ -71,23 +71,33 @@ Vi vil bruke moving average for å kunne gi en slags midlertidig fylling og oppn
 Prosessen for å lage interaktive modeller var krevende da vi ikke har gjort dette før, men fortsatt veldig lærikt å kult. VI brukte Plotly fordi den brukes for å lage responsive grafer med hover-effekter, zoom, sliders og dropdown-meny. Da vi fikk lest oss opp fant vi ut at plotly kun trengte å lage dataserien for å så oppdatere oppsettet med en "range slider". ELlers valgte vi å gjøre modellene om til html filer fordi det var mer pålitelig og oversiktlig. Fordelene med interaktive modeller er at det lar oss utforske dataene selv og dermed blir det bedre for å presentere data.
 
 ### 5. Hvordan vil du evaluere effektiviteten av visualiseringene dine i å formidle de viktigste funnene fra dataanalysen til et bredere publikum?
-Med de begrensede mengdene data vi jobbet med, har vi klart å presentere dataen
+Med de begrensede mengdene data vi jobbet med, har vi klart å presentere dataen bra hvor visualiseringene har gitt en god innsikt i værmønstre. Grafene er visuelt ryddig med beskrivende titler som gir innsikt uten forklaring. Samtidig så viser de ikke for mye informasjon på en gang.
 
 ## Oppgave 6
 
 ### 1. Lag minst tre forskjellige typer visualiseringer (f.eks. linjediagrammer, søylediagrammer og scatterplots) for å representere endringer i luftkvalitet og temperaturdata over tid. Forklar valget av visualiseringstype for hver graf.
+Linjediagram:
+    Viser endringer i temperatur og vind over tid. Passer veldig bra til tidsserier fordi det tydelig illustrerer økninger og fall over tid.
 
-### 3. Implementer visualiseringer ved hjelp av Matplotlib og Seaborn. Inkluder tilpassede akser, titler, og fargepaletter for å forbedre lesbarheten og estetikk.
+Søylediagram:
+    Viser tydelig hvilke verdier mesteparten av dataen har og gjør det lettere å sammenligne verdier visuelt enn i tallform.
 
-### 4. Demonstrer hvordan manglende data håndteres i visualiseringene. Lag en graf som viser hvordan manglende verdier påvirker datatrender, og diskuter hvordan dette kan påvirke tolkningen av dataene.
+Boksplott:
+    Viser tydelig om det finnes uteliggere i datasettet i tillegg til å få fram hvor medianen ligger. 
 
-### 5. Skriv en kort evaluering av de utviklede visualiseringene. Diskuter hvilke visualiseringer som var mest effektive for å formidle informasjon, og hvorfor. Reflekter over tilbakemeldinger fra medstudenter eller veileder.
+### 2. Implementer visualiseringer ved hjelp av Matplotlib og Seaborn. Inkluder tilpassede akser, titler, og fargepaletter for å forbedre lesbarheten og estetikk.
+Vi har brukt Matplotlib for alt av visualisering utenom den interaktive modellen. Vi har også tatt i bruk Seaborn for å enkelt kunne lage tydelige grafer av boksplottet, korrelasjon og heatmap.
 
+### 3. Demonstrer hvordan manglende data håndteres i visualiseringene. Lag en graf som viser hvordan manglende verdier påvirker datatrender, og diskuter hvordan dette kan påvirke tolkningen av dataene.
+For å lage manglende data så lagde vi en egen funksjon i "funksjoner.py" filen som endret et tilfeldig antall verdier til NaN. Vi prøvde deretter å illustrere hvordan man kan håndtere manglende data med bruk av glidende gjennomsnitt. VI tror ikke alt fungerer som det skal her da da de nye verdiene for glidende gjennomsnitt er de samme som de gamle. Vi hadde mye problemer med implimenteringen av disse funskjonene sammen og dermed er det mulig det ligger noen feil her. HVis vi hadde klart å implementere dette ordentlig ville disse manglende verdiene kunne skapt falske trender i datasettet og skjult de reele.
 
+### 4. Skriv en kort evaluering av de utviklede visualiseringene. Diskuter hvilke visualiseringer som var mest effektive for å formidle informasjon, og hvorfor. Reflekter over tilbakemeldinger fra medstudenter eller veileder.
 
-# Evaluering
+Mest effektive visualisering:
+Vi syntes heatmaps var mest effektiv fordi det umiddelbart viste sammenhengen mellom temperatur og vindkast – noe som ellers kan være vanskelig å se i linjediagramenne som fort kan bli uoversiktlig med store variasjoner i data.
 
-- Skulle hatt mer data og jobbe med
-- skulle brukt api for å kunne hente inn data, slik kunne dataen vært hentet frem til dagens dato, da ville vi kunne skjekket egen prognose opp mot prognoser fra yr eller storm. 
-- Linjer regressjon er ikke en veldig passende regresjonslinje for slik type data. Det ville passet bedre med mer sykliske regresjonslinjer som sinus, eller logistisk.
-- (kanskje bedre requirements.txt filen, den er ikke ryddet enda) 
+Refleksjon:
+Linjediagrammene var gode til å vise variasjon over tid, men ble rotete uten glidende gjennomsnitt. Søylediagrammet og boksplottet var lett å lese, og ga et godt bilde av den enkle dataanalysen som ble gjort tidlig i del 2. Korrelasjonsgrafen og heatmaps ga et godt bilde av hvordan temperaturen og vinden henger sammen. Lineær regresjon i tidsplanet er ikke en veldig god måte å predikere verdier frem i tid. Det ville passet bedre med mer sykliske regresjonslinjer som sinus, eller logistiske funksjoner. Den interaktive modellen gjorde at linjediagrammet var enkelt å lese, men kunne kanskje vært mer komplisert med ulike dropdown menyer og lignende.
+
+Tilbakemeldinger fra medstudenter eller veileder:
+Vi har fått positiv tilbakemelding på tilfredstillene visualiseringer og ryddig/lesbar kode. Av tilbakemeldinger vi har fått har vi prøvd å utbedre alt som å legge til unntakshåndtering og grundig evaluering av modellene.
